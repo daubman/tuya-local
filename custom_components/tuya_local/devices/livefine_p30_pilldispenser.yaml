@@ -1,0 +1,381 @@
+name: Pill dispenser
+products:
+  - id: lofswf15t4vfbtde
+    manufacturer: LiveFine
+    model: LVFPDWIFC/F (P30)
+entities:
+  # Primary: dose event. 0=alarm fired, 1=taken, 2=missed (cloud model).
+  - entity: sensor
+    name: Medication status
+    class: enum
+    icon: "mdi:medication"
+    dps:
+      - id: 120
+        type: integer
+        optional: true
+        name: sensor
+        mapping:
+          - dps_val: 0
+            value: dispensed
+          - dps_val: 1
+            value: taken
+          - dps_val: 2
+            value: missed
+  - entity: event
+    name: Medication
+    icon: "mdi:medication"
+    dps:
+      - id: 120
+        type: integer
+        optional: true
+        name: event
+        mapping:
+          - dps_val: 0
+            value: dispensed
+          - dps_val: 1
+            value: taken
+          - dps_val: 2
+            value: missed
+          - value: null
+  # Compartments
+  - entity: sensor
+    name: Compartments remaining
+    icon: "mdi:pill-multiple"
+    category: diagnostic
+    dps:
+      - id: 118
+        type: integer
+        optional: true
+        name: sensor
+        class: measurement
+  - entity: number
+    name: Compartments loaded
+    icon: "mdi:pill-multiple"
+    category: config
+    dps:
+      - id: 117
+        type: integer
+        optional: true
+        name: value
+        range:
+          min: 1
+          max: 28
+  # Health / status
+  - entity: binary_sensor
+    name: Battery
+    class: battery
+    category: diagnostic
+    dps:
+      - id: 119
+        type: boolean
+        optional: true
+        name: sensor
+  - entity: binary_sensor
+    name: Power adapter
+    class: plug
+    category: diagnostic
+    dps:
+      - id: 121
+        type: boolean
+        optional: true
+        name: sensor
+  - entity: binary_sensor
+    name: Tray jammed
+    class: problem
+    category: diagnostic
+    dps:
+      - id: 125
+        type: boolean
+        optional: true
+        name: sensor
+  - entity: binary_sensor
+    name: Refill needed
+    icon: "mdi:reload-alert"
+    category: diagnostic
+    dps:
+      - id: 130
+        type: boolean
+        optional: true
+        name: sensor
+  # Alarm config blobs (raw). Hidden diagnostics - not decoded yet.
+  - entity: text
+    name: Alarm 1
+    icon: "mdi:alarm"
+    category: diagnostic
+    hidden: true
+    dps:
+      - id: 101
+        type: base64
+        optional: true
+        name: value
+  - entity: text
+    name: Alarm 2
+    icon: "mdi:alarm"
+    category: diagnostic
+    hidden: true
+    dps:
+      - id: 102
+        type: base64
+        optional: true
+        name: value
+  - entity: text
+    name: Alarm 3
+    icon: "mdi:alarm"
+    category: diagnostic
+    hidden: true
+    dps:
+      - id: 103
+        type: base64
+        optional: true
+        name: value
+  - entity: text
+    name: Alarm 4
+    icon: "mdi:alarm"
+    category: diagnostic
+    hidden: true
+    dps:
+      - id: 104
+        type: base64
+        optional: true
+        name: value
+  - entity: text
+    name: Alarm 5
+    icon: "mdi:alarm"
+    category: diagnostic
+    hidden: true
+    dps:
+      - id: 105
+        type: base64
+        optional: true
+        name: value
+  - entity: text
+    name: Alarm 6
+    icon: "mdi:alarm"
+    category: diagnostic
+    hidden: true
+    dps:
+      - id: 106
+        type: base64
+        optional: true
+        name: value
+  - entity: text
+    name: Alarm 7
+    icon: "mdi:alarm"
+    category: diagnostic
+    hidden: true
+    dps:
+      - id: 107
+        type: base64
+        optional: true
+        name: value
+  - entity: text
+    name: Alarm 8
+    icon: "mdi:alarm"
+    category: diagnostic
+    hidden: true
+    dps:
+      - id: 108
+        type: base64
+        optional: true
+        name: value
+  - entity: text
+    name: Alarm 9
+    icon: "mdi:alarm"
+    category: diagnostic
+    hidden: true
+    dps:
+      - id: 109
+        type: base64
+        optional: true
+        name: value
+  # Notification toggles
+  - entity: switch
+    name: Taken notification
+    icon: "mdi:pill"
+    category: config
+    dps:
+      - id: 110
+        type: boolean
+        optional: true
+        name: switch
+  - entity: switch
+    name: Missed dose notification
+    icon: "mdi:pill-off"
+    category: config
+    dps:
+      - id: 111
+        type: boolean
+        optional: true
+        name: switch
+  - entity: switch
+    name: Medication notification
+    icon: "mdi:pill"
+    category: config
+    dps:
+      - id: 115
+        type: boolean
+        optional: true
+        name: switch
+  - entity: switch
+    name: Compartment lock
+    icon: "mdi:lock"
+    category: config
+    dps:
+      - id: 116
+        type: boolean
+        optional: true
+        name: switch
+  # Config
+  - entity: switch
+    name: 12 hour clock
+    icon: "mdi:clock"
+    category: config
+    dps:
+      - id: 113
+        type: boolean
+        optional: true
+        name: switch
+  - entity: text
+    name: Time sync
+    icon: "mdi:clock-edit"
+    category: diagnostic
+    hidden: true
+    dps:
+      - id: 112
+        type: base64
+        optional: true
+        name: value
+  - entity: switch
+    translation_key: network_time
+    icon: "mdi:web-clock"
+    category: config
+    dps:
+      - id: 114
+        type: boolean
+        optional: true
+        name: switch
+  - entity: select
+    name: Alarm volume
+    icon: "mdi:volume-high"
+    category: config
+    dps:
+      - id: 122
+        type: string
+        name: option
+        mapping:
+          - dps_val: "0"
+            value: mute
+          - dps_val: "1"
+            value: low
+          - dps_val: "2"
+            value: medium
+          - dps_val: "3"
+            value: high
+  - entity: select
+    name: Ring type
+    icon: "mdi:music"
+    category: config
+    dps:
+      - id: 126
+        type: string
+        name: option
+        mapping:
+          - dps_val: "1"
+            value: mode_a
+          - dps_val: "2"
+            value: mode_b
+          - dps_val: "3"
+            value: mode_c
+  - entity: number
+    name: Alarm ring duration
+    icon: "mdi:timer"
+    category: config
+    class: duration
+    dps:
+      - id: 123
+        type: integer
+        optional: true
+        name: value
+        range:
+          min: 5
+          max: 120
+  - entity: number
+    name: Missed dose ring duration
+    icon: "mdi:timer-alert"
+    category: config
+    class: duration
+    dps:
+      - id: 124
+        type: integer
+        optional: true
+        name: value
+        range:
+          min: 4
+          max: 60
+  - entity: switch
+    name: Silence alarm
+    icon: "mdi:volume-off"
+    category: config
+    dps:
+      - id: 127
+        type: boolean
+        optional: true
+        name: switch
+  - entity: switch
+    name: Refill reminder
+    icon: "mdi:reload-alert"
+    category: config
+    dps:
+      - id: 128
+        type: boolean
+        optional: true
+        name: switch
+  - entity: number
+    name: Refill reminder days
+    icon: "mdi:calendar-clock"
+    category: config
+    dps:
+      - id: 129
+        type: integer
+        optional: true
+        name: value
+        range:
+          min: 1
+          max: 10
+  - entity: select
+    name: Date format
+    icon: "mdi:calendar-question"
+    category: config
+    dps:
+      - id: 133
+        type: string
+        optional: true
+        name: option
+        mapping:
+          - dps_val: "1"
+            value: "YYYY-MM-DD"
+          - dps_val: "2"
+            value: "MM-DD-YYYY"
+          - dps_val: "3"
+            value: "DD-MM-YYYY"
+  # Destructive write-only controls - registered but disabled by default.
+  # Enable per-entity in HA if needed; a press writes true to the dp.
+  - entity: button
+    name: Clear all alarms
+    icon: "mdi:alarm-off"
+    category: config
+    hidden: true
+    dps:
+      - id: 131
+        type: boolean
+        optional: true
+        name: button
+  - entity: button
+    translation_key: factory_reset
+    category: config
+    hidden: true
+    dps:
+      - id: 132
+        type: boolean
+        optional: true
+        name: button
